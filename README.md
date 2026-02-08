@@ -108,6 +108,24 @@ jupyter notebook 3_predictions_ml.ipynb
 - ⏱️ Temps d'entraînement : ~10-15min
 - 🎯 Précision : ~65-70%
 
+#### 4️⃣ Approche Classement (`4_predictions_classement.ipynb`)
+
+Prédiction probabiliste basée sur le rang au classement :
+
+```bash
+jupyter notebook 4_predictions_classement.ipynb
+```
+
+**Caractéristiques** :
+- 🏆 Formule mathématique : `P(victoire) = (1/rang) normalisé`
+- ✅ Probabilités cohérentes (somme = 100%)
+- ✅ Utilise uniquement le cache (0 appels API)
+- ✅ Extrêmement simple et transparent
+- 📊 Visualisations (graphiques, heatmap)
+- ❌ Ignore la forme récente et le contexte
+- 📖 [Documentation de la méthode](docs/prediction_classement.md)
+- 🎯 Précision : ~50-55% (baseline)
+
 ---
 
 ### 💻 Utilisation dans VS Code
@@ -153,18 +171,18 @@ Pour optimiser l'utilisation de votre quota API (100 requêtes/jour avec le plan
 
 ## Comparaison des Approches
 
-| Critère | Approche Simple | Approche ML |
-|---------|----------------|-------------|
-| **Complexité** | Faible | Élevée |
-| **Temps de calcul** | Instantané | ~10-15 min (entraînement initial) |
-| **Données historiques** | Non requises | Oui (3 saisons) |
-| **Features** | 3 (forme, buts pour/contre) | 20+ (stats détaillées domicile/extérieur) |
-| **Sortie** | Score + seuil de décision | Probabilités + classe prédite |
-| **Validation** | Aucune | Train/test split + métriques |
-| **Domicile/Extérieur** | Non pris en compte | Oui (features séparées) |
-| **Appels API** | Minimal (2 par prédiction) | Important (entraînement) puis minimal |
-| **Précision estimée** | ~55-60% | ~60-70% |
-| **Recommandé pour** | Découverte et compréhension | Production et précision |
+| Critère | Approche Classement | Approche Simple | Approche Stats Avancées | Approche ML |
+|---------|---------------------|----------------|------------------------|-------------|
+| **Complexité** | Très faible | Faible | Moyenne | Élevée |
+| **Temps de calcul** | Instantané | Instantané | Instantané | ~10-15 min (entraînement) |
+| **Données historiques** | Non requises | Non requises | Non requises | Oui (3 saisons) |
+| **Features** | 1 (rang) | 3 (forme, buts) | 6 (forme, H2H, domicile) | 20+ (stats détaillées) |
+| **Sortie** | Probabilités normalisées | Score + seuil | Probabilités estimées | Probabilités + classe |
+| **Validation** | Aucune | Aucune | Aucune | Train/test split |
+| **Domicile/Extérieur** | Non | Non | Oui | Oui |
+| **Appels API** | Minimal (cache) | Minimal (cache) | Minimal (cache) | Important (entraînement) |
+| **Précision estimée** | ~50-55% | ~55-60% | ~60-65% | ~65-70% |
+| **Recommandé pour** | Baseline/Référence | Découverte | Analyse équilibrée | Production |
 
 ## Structure du Projet
 
@@ -174,6 +192,7 @@ predictions-football-fr-python/
 ├── 1_predictions_simples.ipynb        # 🎯 Prédictions simples (lecture cache)
 ├── 2_predictions_stats_avancees.ipynb # 📊 Prédictions stats avancées (lecture cache)
 ├── 3_predictions_ml.ipynb             # 🤖 Prédictions ML (avec entraînement)
+├── 4_predictions_classement.ipynb     # 🏆 Prédictions par classement (lecture cache)
 ├── predictions_ligue1.ipynb           # 📜 Archive: ancien notebook complet
 ├── .env                               # Configuration (non versionné)
 ├── .env.example                       # Template de configuration
@@ -187,7 +206,9 @@ predictions-football-fr-python/
 │   └── feature_columns.pkl
 └── docs/                              # Documentation
     ├── README.md                      # Index de la documentation
-    └── prediction-simple.md           # Méthodologie approche simple
+    ├── prediction_simple_1.md         # Méthodologie approche simple
+    ├── predictions_simple_2.md        # Méthodologie approche simple (v2)
+    └── prediction_classement.md       # Méthodologie approche classement
 ```
 
 ### 🔄 Workflow Recommandé
@@ -218,6 +239,8 @@ predictions-football-fr-python/
    jupyter notebook 2_predictions_stats_avancees.ipynb
    # OU
    jupyter notebook 3_predictions_ml.ipynb
+   # OU
+   jupyter notebook 4_predictions_classement.ipynb
    ```
 
 ## Sécurité
