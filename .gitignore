@@ -1,0 +1,34 @@
+# Environment variables
+.env
+
+# Cache - ignore les fichiers JSON du cache mais garde la structure
+cache/*.json
+
+# Modèles ML entraînés (trop gros pour Git)
+models/
+*.pkl
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

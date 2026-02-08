@@ -1,0 +1,2 @@
+# Ce fichier permet de tracker le dossier cache dans Git
+# Les fichiers *.json dans ce dossier sont ignorés par .gitignore
